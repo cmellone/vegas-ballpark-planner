@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { clsx } from "clsx";
-import { Area, AreaChart, Bar, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { CircleAlert, CircleCheck, TrendingDown, TrendingUp } from "lucide-react";
 import { Card, CardHeader, CHART, ChartTooltip, PageHeader, Pill } from "../components/ui";
 import { fmtInt, fmtM, pick } from "../model";
@@ -166,42 +166,24 @@ export default function Reporting() {
               <Legend iconType="square" iconSize={10} wrapperStyle={{ fontSize: 12, color: CHART.axis }} />
               <Bar dataKey="actual" name="Actual" stackId="m" fill={CHART.green} radius={[3, 3, 0, 0]} />
               <Bar dataKey="forecast" name="Forecast (at budget)" stackId="m" fill={CHART.greenLight} radius={[3, 3, 0, 0]} />
-              <Line dataKey="budget" name="Budget" type="monotone" stroke={CHART.gold} strokeWidth={2} dot={{ r: 3, fill: CHART.gold }} />
+              <Line dataKey="budget" name="Budget" type="linear" stroke={CHART.gold} strokeWidth={2} dot={{ r: 3, fill: CHART.gold }} />
             </ComposedChart>
           </ResponsiveContainer>
         </div>
       </Card>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
-          <CardHeader title="Deferred revenue: premium season contracts" subtitle="Cash collected before Opening Day, recognized game by game, $ millions" />
-          <div className="h-[220px] px-2 py-4">
-            <ResponsiveContainer>
-              <AreaChart data={rep.deferred} margin={{ left: 8, right: 16, top: 8, bottom: 0 }}>
-                <CartesianGrid vertical={false} stroke={CHART.grid} />
-                <XAxis dataKey="name" tick={{ fill: "#13211E", fontSize: 12 }} axisLine={false} tickLine={false} />
-                <YAxis tickFormatter={(x) => (x / 1e6).toFixed(0)} tick={{ fill: CHART.axis, fontSize: 12 }} axisLine={false} tickLine={false} width={36} />
-                <Tooltip content={<ChartTooltip formatter={(x: number) => fmtM(x)} />} />
-                <Area dataKey="close" name="Deferred revenue balance" type="stepAfter" stroke={CHART.gold} strokeWidth={2} fill={CHART.gold} fillOpacity={0.18} />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-          <p className="px-5 pb-5 text-[13px] text-muted">The {fmtM(rep.deferred[0].open)} of premium and suite season revenue sits on the balance sheet as a liability until games are played, then moves to revenue with each home date. Seat license fees follow the same idea over the life of the license and are kept out of this view.</p>
-        </Card>
-        <Card>
-          <CardHeader title="Controls: tie-out checks" subtitle="Run every time an input changes" />
-          <ul className="grid gap-3 p-5 text-sm text-ink">
-            {rep.checks.map((c) => (
-              <li key={c.label} className="flex items-center gap-3">
-                {c.ok ? <CircleCheck size={18} className="shrink-0 text-green-700" /> : <CircleAlert size={18} className="shrink-0 text-rust-600" />}
-                {c.label}
-                <span className="ml-auto"><Pill tone={c.ok ? "good" : "warn"}>{c.ok ? "Pass" : "Break"}</Pill></span>
-              </li>
-            ))}
-          </ul>
-          <p className="px-5 pb-5 text-[13px] text-muted">The same checks a month-end close would run before a package goes to ownership: the budget ties to the plan, departments tie to the total, and the forecast rolls forward cleanly.</p>
-        </Card>
-      </div>
+      <Card className="p-5">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <span className="text-sm font-semibold text-ink">Controls</span>
+          {rep.checks.map((c) => (
+            <span key={c.label} className="inline-flex items-center gap-1.5 text-[13px] text-muted">
+              {c.ok ? <CircleCheck size={15} className="text-green-700" /> : <CircleAlert size={15} className="text-rust-600" />}
+              {c.label}
+            </span>
+          ))}
+        </div>
+        <p className="mt-3 text-[13px] text-muted">Premium season cash of {fmtM(rep.deferred[0].open)} is held as deferred revenue and recognized game by game, closing at zero after the last home date.</p>
+      </Card>
     </div>
   );
 }

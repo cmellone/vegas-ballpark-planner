@@ -153,7 +153,7 @@ export type Result = ReturnType<typeof compute>;
 
 export const STREAMS: { key: keyof Result; name: string; short: string; how: string; inputs: string[] }[] = [
   { key: "tickets", name: "General tickets", short: "Tickets", how: "General seating fans × 81 games × blended local/tourist price", inputs: ["att", "tour", "loc", "tou"] },
-  { key: "clubs", name: "Premium club seats", short: "Premium", how: "Athletic + Diamond Club season seats, plus other premium seats × price × 81", inputs: ["acp", "dcsold", "opp", "opsold"] },
+  { key: "clubs", name: "Premium club seats", short: "Club seats", how: "Athletic + Diamond Club season seats, plus other premium seats × price × 81", inputs: ["acp", "dcsold", "opp", "opsold"] },
   { key: "spons", name: "Sponsorship & naming", short: "Sponsorship", how: "Naming rights + other sponsorship", inputs: ["nm", "sp2"] },
   { key: "fb", name: "Food & beverage (club share)", short: "F&B", how: "General tickets × spend per fan × club share", inputs: ["fb", "comm"] },
   { key: "merch", name: "Merchandise", short: "Merch", how: "All fans × 81 games × spend per fan", inputs: ["mer"] },
