@@ -42,10 +42,6 @@ export default function Method({ bare }: { bare?: boolean }) {
           ))}
         </ol>
       </Card>
-      <Card className="p-5 text-sm text-ink">
-        <div className="font-semibold">About</div>
-        <p className="mt-1 max-w-[75ch] text-muted">Built by Cole Mellone, a finance professional with a background in lending, underwriting and capital markets. This is an independent concept and isn't affiliated with the A's, the Las Vegas Stadium Authority or MLB.</p>
-      </Card>
     </div>
   );
 }
