@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { -webkit-text-size-adjust: 100%; }
+body { @apply bg-page font-sans text-ink antialiased; font-feature-settings: "ss01"; }
+.recharts-text { font-family: "Geist Variable", system-ui, sans-serif; }
+.recharts-wrapper:focus, .recharts-surface:focus { outline: none; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
