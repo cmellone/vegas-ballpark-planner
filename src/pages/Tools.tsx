@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { Card, CardHeader, CHART, ChartTooltip, PageHeader } from "../components/ui";
-import { compute, fmtInt, fmtM, pick } from "../model";
+import { Card, CardHeader, PageHeader } from "../components/ui";
+import { compute, fmtM, pick } from "../model";
 import { useStore } from "../store";
 import Events from "./Events";
 
@@ -32,48 +31,6 @@ function Result({ items }: { items: { k: string; v: string; s?: string; gold?: b
   );
 }
 
-function PricingTool() {
-  const { values } = useStore();
-  const x = pick(values, "b"), r = compute(x);
-  const [chg, setChg] = useState(10);
-  const [el, setEl] = useState(-0.4);
-  const effect = (c: number) => {
-    const d = c / 100, ga = r.gaFans * (1 + n(el) * d), dGa = (ga - r.gaFans) * x.g;
-    const tickets = ga * x.g * r.gaPrice * (1 + d) - r.tickets;
-    const spend = dGa * (x.fb * x.comm + x.mer);
-    return { tickets, spend, net: tickets + spend, ga };
-  };
-  const e = effect(n(chg));
-  const curve = Array.from({ length: 9 }, (_, i) => { const c = -20 + i * 5; return { c: (c > 0 ? "+" : "") + c + "%", net: effect(c).net }; });
-  return (
-    <Card>
-      <CardHeader title="General ticket pricing" subtitle="What a price change does to ticket revenue and in-park spending, Base case" />
-      <div className="grid gap-4 p-5 sm:grid-cols-2">
-        <Field id="p-chg" label="Price change (%)" value={chg} step={1} onChange={setChg} />
-        <Field id="p-el" label="Attendance response (elasticity)" value={el} step={0.05} onChange={setEl} hint="Your assumption. −0.4 means a 10% price rise loses 4% of general seating fans." />
-      </div>
-      <div className="mx-5 mb-5"><Result items={[
-        { k: "Ticket revenue", v: (e.tickets >= 0 ? "+" : "") + fmtM(e.tickets, 2) },
-        { k: "Lost or gained F&B and retail", v: (e.spend >= 0 ? "+" : "") + fmtM(e.spend, 2), s: `${fmtInt(e.ga)} general fans a game` },
-        { k: "Net revenue effect", v: (e.net >= 0 ? "+" : "") + fmtM(e.net, 2), gold: true },
-      ]} /></div>
-      <div className="h-[200px] px-2 pb-4">
-        <ResponsiveContainer>
-          <LineChart data={curve} margin={{ left: 8, right: 16, top: 8, bottom: 0 }}>
-            <CartesianGrid vertical={false} stroke={CHART.grid} />
-            <XAxis dataKey="c" tick={{ fill: "#13211E", fontSize: 12 }} axisLine={false} tickLine={false} />
-            <YAxis tickFormatter={(v) => (v / 1e6).toFixed(0)} tick={{ fill: CHART.axis, fontSize: 12 }} axisLine={false} tickLine={false} width={36} />
-            <ReferenceLine y={0} stroke="#13211E" />
-            <Tooltip content={<ChartTooltip formatter={(v: number) => fmtM(v, 2)} />} />
-            <Line dataKey="net" name="Net revenue effect" stroke={CHART.green} strokeWidth={2} dot={{ r: 3, fill: CHART.green }} />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-      <p className="px-5 pb-5 text-[13px] text-muted">The curve shows the net effect once lost fans' food, drink and retail spend is counted. Make the attendance response stronger to see where higher prices stop paying.</p>
-    </Card>
-  );
-}
-
 function PaybackTool() {
   const { values } = useStore();
   const x = pick(values, "b"), r = compute(x);
@@ -89,7 +46,7 @@ function PaybackTool() {
   return (
     <Card>
       <CardHeader title="Premium conversion payback" subtitle="Converting general seats into a new premium product, Base case" />
-      <div className="grid gap-4 p-5 sm:grid-cols-2">
+      <div className="grid gap-4 p-5 sm:grid-cols-2 lg:grid-cols-4">
         <Field id="c-seats" label="Seats converted" value={seats} step={50} onChange={setSeats} />
         <Field id="c-price" label="New price per game ($)" value={price} step={10} onChange={setPrice} />
         <Field id="c-sold" label="Sell-through (%)" value={sold} step={5} onChange={setSold} />
@@ -108,11 +65,8 @@ function PaybackTool() {
 export default function Tools() {
   return (
     <div className="grid gap-6">
-      <PageHeader title="Decision tools" description="Quick models for testing pricing changes, capital projects and new events. Each one runs off the Base case and its own inputs." />
-      <div className="grid gap-6 xl:grid-cols-2">
-        <PricingTool />
-        <PaybackTool />
-      </div>
+      <PageHeader title="Decision tools" description="Quick models for testing capital projects and new events. Each one runs off the Base case and its own inputs." />
+      <PaybackTool />
       <Events bare />
     </div>
   );
