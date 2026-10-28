@@ -5,12 +5,12 @@ import { useStore } from "../store";
 
 function Field({ id, label, value, onChange, step }: { id: string; label: string; value: number; onChange: (n: number) => void; step: number }) {
   return (
-    <label htmlFor={id} className="grid gap-1.5 text-[13px] font-medium text-muted">
+    <label htmlFor={id} className="grid min-w-0 gap-1.5 text-[13px] font-medium text-muted">
       {label}
       <input
         id={id} type="number" inputMode="decimal" min={0} step={step} value={Number.isFinite(value) ? value : ""}
         onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="rounded-md border border-line bg-white px-3 py-2 font-mono text-[15px] text-ink shadow-card outline-none focus:border-green-700 focus:ring-2 focus:ring-green-700/15"
+        className="w-full min-w-0 rounded-md border border-line bg-white px-3 py-2 font-mono text-[15px] text-ink shadow-card outline-none focus:border-green-700 focus:ring-2 focus:ring-green-700/15"
       />
     </label>
   );
