@@ -23,7 +23,7 @@ export default function Plan() {
     <div className="grid gap-6">
       <PageHeader
         title="Las Vegas 2028 Revenue Plan"
-        description="A finance concept for the A's first season in Las Vegas: what the business side could earn, how that becomes a department budget, and how results would be reported. Built from public information; every input and source is on the Model tab."
+        description="A finance concept for the A's first season in Las Vegas, from revenue plan to budget to monthly reporting. Built from public information; every input and source is on the Model tab."
       >
         <Pill tone="gold">{label} case · 2028</Pill>
       </PageHeader>
