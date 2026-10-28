@@ -108,7 +108,7 @@ function PaybackTool() {
 export default function Tools() {
   return (
     <div className="grid gap-6">
-      <PageHeader title="Decision tools" description="Quick models for the decisions business-side leaders bring to finance: pricing, capital projects and new events. Each one runs off the Base case and its own inputs." />
+      <PageHeader title="Decision tools" description="Quick models for testing pricing changes, capital projects and new events with department leaders. Each one runs off the Base case and its own inputs." />
       <div className="grid gap-6 xl:grid-cols-2">
         <PricingTool />
         <PaybackTool />
