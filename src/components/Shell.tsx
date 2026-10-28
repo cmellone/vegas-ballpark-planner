@@ -5,7 +5,7 @@ import { SCENARIOS } from "../model";
 import { useStore } from "../store";
 
 export const PAGES = [
-  { id: "plan", label: "Ballpark plan", icon: LayoutDashboard },
+  { id: "plan", label: "Revenue plan", icon: LayoutDashboard },
   { id: "reporting", label: "Budget & reporting", icon: BarChart3 },
   { id: "tools", label: "Decision tools", icon: Calculator },
   { id: "model", label: "Model", icon: Table2 },

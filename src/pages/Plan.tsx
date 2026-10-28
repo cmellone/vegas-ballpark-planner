@@ -22,8 +22,8 @@ export default function Plan() {
   return (
     <div className="grid gap-6">
       <PageHeader
-        title="Ballpark plan"
-        description="Opening-season revenue for the new Las Vegas ballpark, built from public information. This plan sets the budget on the next tab; every input and source is on the Model tab."
+        title="Las Vegas 2028 Revenue Plan"
+        description="A finance concept for the A's first season in Las Vegas: what the business side could earn, how that becomes a department budget, and how results would be reported. Built from public information; every input and source is on the Model tab."
       >
         <Pill tone="gold">{label} case · 2028</Pill>
       </PageHeader>
