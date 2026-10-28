@@ -53,8 +53,8 @@ export function Shell({ page, children }: { page: PageId; children: ReactNode })
         <div className="flex items-center gap-3 px-5 pb-6 pt-6">
           <Mark />
           <div className="leading-tight">
-            <div className="text-[15px] font-semibold">Ballpark Planner</div>
-            <div className="text-xs text-white/55">Las Vegas · 2028 opening</div>
+            <div className="text-[15px] font-semibold">Strategic Finance</div>
+            <div className="text-xs text-white/55">Business operations · FY2028</div>
           </div>
         </div>
         <div className="px-5 pb-2 text-[11px] font-medium uppercase tracking-wider text-white/40">Finance</div>
@@ -88,7 +88,7 @@ export function Shell({ page, children }: { page: PageId; children: ReactNode })
         <div className="flex items-center gap-3 px-4 py-3 sm:px-8">
           <div className="hidden items-center gap-2 sm:flex lg:hidden"><Mark /></div>
           <div className="min-w-0 flex-1">
-            <div className="hidden text-[12px] text-muted sm:block">Finance · Ballpark revenue</div>
+            <div className="hidden text-[12px] text-muted sm:block">Business operations</div>
             <div className="truncate text-[15px] font-semibold text-ink">{current.label}</div>
           </div>
           {edits > 0 && (

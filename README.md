@@ -1,4 +1,4 @@
-# Las Vegas Ballpark Revenue Planner
+# Strategic Finance · Las Vegas 2028
 
 An opening-season revenue model for a 33,000-seat domed ballpark on the Las Vegas Strip. Independent concept by Cole Mellone, built from public information. Not affiliated with the A's or MLB.
 
