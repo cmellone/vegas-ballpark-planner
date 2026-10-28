@@ -10,7 +10,7 @@ export default function Method({ bare }: { bare?: boolean }) {
         <Card>
           <CardHeader title="Approach" />
           <ul className="grid gap-3 p-5 text-sm text-ink">
-            <li>A driver-based model of the opening season, built from public information. Three scenarios bracket the uncertainty.</li>
+            <li>A driver-based model of the opening season, built from public information. Conservative, Base and Upside cases show a range of outcomes.</li>
             <li className="flex flex-wrap items-center gap-1.5">Every input is tagged <TierBadge tier="D" /> stated by the club or Stadium Authority, <TierBadge tier="B" /> set from other MLB clubs or Las Vegas venues, or <TierBadge tier="E" /> a judgment kept inside a benchmark range.</li>
             <li>The budget phases the Base case across an illustrative 81-game schedule. Monthly actuals are simulated to show the reporting process.</li>
             <li>Decision tools start from example terms you can change.</li>
@@ -26,7 +26,7 @@ export default function Method({ bare }: { bare?: boolean }) {
             <li>Development around the site</li>
             <li>Postseason games</li>
           </ul>
-          <p className="px-5 pb-5 text-sm text-muted">The club's actual figures will differ. The point is the structure: which drivers matter, how they connect, and where the risk sits.</p>
+          <p className="px-5 pb-5 text-sm text-muted">The club's actual figures will differ. The goal is to show how the revenue drivers fit together and where the biggest risks are.</p>
         </Card>
       </div>
       <Card>
