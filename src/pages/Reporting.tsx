@@ -128,6 +128,11 @@ export default function Reporting() {
             </tbody>
           </table>
         </div>
+        <div className="flex items-center gap-2 border-t border-line px-5 py-3 text-[13px] text-muted">
+          {rep.checks.every((c) => c.ok)
+            ? <><CircleCheck size={15} className="shrink-0 text-green-700" />Ties to the revenue plan: budget, departments and forecast all reconcile.</>
+            : <><CircleAlert size={15} className="shrink-0 text-rust-600" />Check: these figures no longer reconcile to the revenue plan.</>}
+        </div>
       </Card>
 
       <div className="grid gap-6 xl:grid-cols-5">
@@ -172,18 +177,6 @@ export default function Reporting() {
         </div>
       </Card>
 
-      <Card className="p-5">
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-          <span className="text-sm font-semibold text-ink">Controls</span>
-          {rep.checks.map((c) => (
-            <span key={c.label} className="inline-flex items-center gap-1.5 text-[13px] text-muted">
-              {c.ok ? <CircleCheck size={15} className="text-green-700" /> : <CircleAlert size={15} className="text-rust-600" />}
-              {c.label}
-            </span>
-          ))}
-        </div>
-        <p className="mt-3 text-[13px] text-muted">Premium season cash of {fmtM(rep.deferred[0].open)} is held as deferred revenue and recognized game by game, closing at zero after the last home date.</p>
-      </Card>
     </div>
   );
 }
