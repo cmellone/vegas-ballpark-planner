@@ -96,7 +96,9 @@ export function Shell({ page, children }: { page: PageId; children: ReactNode })
               <RotateCcw size={14} /> {edits} edited {edits === 1 ? "input" : "inputs"} · Reset
             </button>
           )}
-          <ScenarioSwitch />
+          {page === "plan" || page === "model"
+            ? <ScenarioSwitch />
+            : <span className="whitespace-nowrap rounded-lg border border-line bg-white px-3 py-1.5 text-[13px] text-muted shadow-card">Based on the Base case</span>}
         </div>
         <nav className="flex gap-1 overflow-x-auto px-3 pb-2 lg:hidden" aria-label="Pages">
           {PAGES.map((p) => (
