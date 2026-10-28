@@ -11,12 +11,12 @@ export default function Plan() {
 
   const guestShare = (r.prem + r.suiteFans) / r.att;
   const per1k = compute({ ...x, att: x.att + 1000 }).total - r.total;
-  const yr3 = compute(x, x.h3).total;
+  const contracted = (r.clubs + r.suites + r.spons) / r.total;
 
   const takeaways = [
     { h: "Premium is the engine", t: `Premium seats and suites bring in ${(r.premShare * 100).toFixed(0)}% of revenue from ${(guestShare * 100).toFixed(0)}% of the crowd, and the top clubs are already largely sold.` },
     { h: "Attendance is the biggest open risk", t: `Every 1,000 fans a game is worth about ${fmtM(per1k)} a season. Part of that crowd depends on visitors, and Las Vegas visitation fell 7.5% in 2025.` },
-    { h: "Plan past the honeymoon", t: `New ballparks have held about ${Math.round(x.h3 * 100)}% of year-one attendance by year three, which takes this case from ${fmtM(r.total, 0)} to about ${fmtM(yr3, 0)}.` },
+    { h: "Most revenue is set before Opening Day", t: `About ${(contracted * 100).toFixed(0)}% of revenue comes from premium seats, suites and sponsorship, sold on season or multi-year contracts. That makes the plan more predictable than the attendance swings suggest.` },
   ];
 
   return (
@@ -32,7 +32,7 @@ export default function Plan() {
         <Stat label="Opening-season revenue" value={fmtM(r.total)} icon={<DollarSign size={16} />} accent
           sub={<>Range {fmtM(all.c.total, 0)} to {fmtM(all.u.total, 0)} across scenarios</>} />
         <Stat label="Revenue per fan" value={"$" + r.perFan.toFixed(0)} icon={<Users size={16} />}
-          sub={<>Braves benchmark ${r.brvPerFan.toFixed(0)}</>} />
+          sub={<>MLB benchmark ${r.brvPerFan.toFixed(0)} (Atlanta Braves, 2025)</>} />
         <Stat label="Premium share of revenue" value={(r.premShare * 100).toFixed(0) + "%"} icon={<Gem size={16} />}
           sub="Club seats and suites" />
       </div>
