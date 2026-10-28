@@ -16,8 +16,9 @@ function Mark() {
   return (
     <svg viewBox="0 0 32 32" className="h-8 w-8 shrink-0" aria-hidden="true">
       <rect width="32" height="32" rx="7" fill="#0A4A40" />
-      <circle cx="16" cy="16" r="9.5" fill="#F3F5F2" />
-      <path d="M11.4 9.2 C14 12.4 14 19.6 11.4 22.8 M20.6 9.2 C18 12.4 18 19.6 20.6 22.8" fill="none" stroke="#EFB21E" strokeWidth="1.8" strokeLinecap="round" />
+      <circle cx="16" cy="16" r="12.5" fill="none" stroke="#EFB21E" strokeWidth="2" />
+      <circle cx="16" cy="16" r="8.2" fill="#F3F5F2" />
+      <path d="M13 10.6 C15 13 15 19 13 21.4 M19 10.6 C17 13 17 19 19 21.4" fill="none" stroke="#C2553A" strokeWidth="1.4" strokeLinecap="round" />
     </svg>
   );
 }
