@@ -36,7 +36,7 @@ export default function Premium() {
                   <td className="px-5 py-3.5 font-medium text-ink">{p.name}</td>
                   <td className="px-5 py-3.5"><Pill tone={p.status[1]}>{p.status[0]}</Pill></td>
                   <td className="px-5 py-3.5 text-right font-mono">{fmtInt(p.seats)}</td>
-                  <td className="px-5 py-3.5 text-right font-mono text-muted">{p.price}</td>
+                  <td className="whitespace-nowrap px-5 py-3.5 text-right font-mono text-muted">{p.price}</td>
                   <td className="px-5 py-3.5 text-right font-mono">{(p.sold * 100).toFixed(0)}%</td>
                   <td className="px-5 py-3.5 text-right font-mono text-ink">{fmtM(p.rev)}</td>
                   <td className="px-5 py-3.5 text-right font-mono text-muted">{p.psl == null ? "Not disclosed" : fmtM(p.psl)}</td>

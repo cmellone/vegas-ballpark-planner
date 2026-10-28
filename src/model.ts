@@ -105,7 +105,7 @@ SECTIONS.forEach((s) => s.rows.forEach((d) => (DEFS[d.id] = d)));
 export const COL: Record<Scenario, string> = { c: "C", b: "D", u: "E" };
 export const ROW: Record<string, number> = {};
 {
-  let n = 1;
+  let n = 2; // row 1 holds the column headers
   SECTIONS.forEach((s) => { n++; s.rows.forEach((d) => { ROW[d.id] = n; n++; }); });
 }
 export const cell = (id: string, s: Scenario) => COL[s] + ROW[id];
