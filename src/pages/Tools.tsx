@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Card, CardHeader, PageHeader } from "../components/ui";
-import { compute, fmtM, pick } from "../model";
+import { fmtM, pick } from "../model";
 import { useStore } from "../store";
 import Events from "./Events";
 
@@ -31,33 +31,61 @@ function Result({ items }: { items: { k: string; v: string; s?: string; gold?: b
   );
 }
 
-function PaybackTool() {
+function SponsorshipTool() {
   const { values } = useStore();
-  const x = pick(values, "b"), r = compute(x);
-  const [seats, setSeats] = useState(500);
-  const [price, setPrice] = useState(150);
-  const [sold, setSold] = useState(85);
-  const [capex, setCapex] = useState(6);
-  const occ = r.gaFans / Math.max(1, x.cap - x.acs - x.dcs - x.ops - x.st * x.scap);
-  const gain = n(seats) * (n(sold) / 100) * n(price) * x.g;
-  const lost = n(seats) * Math.min(1, occ) * x.g * (r.gaPrice + x.fb * x.comm);
-  const net = gain - lost;
-  const payback = net > 0 ? (n(capex) * 1e6) / net : Infinity;
+  const budget = pick(values, "b").sp2;
+  const [fee, setFee] = useState(2);
+  const [esc, setEsc] = useState(3);
+  const [term, setTerm] = useState(5);
+  const [cost, setCost] = useState(15);
+  const [rate, setRate] = useState(8);
+  const years = Math.max(1, Math.min(20, Math.round(n(term))));
+  const rows = Array.from({ length: years }, (_, i) => {
+    const f = n(fee) * 1e6 * Math.pow(1 + n(esc) / 100, i);
+    const c = f * n(cost) / 100;
+    const net = f - c;
+    const pv = net / Math.pow(1 + n(rate) / 100, i + 1);
+    return { y: i + 1, f, c, net, pv };
+  });
+  const tcv = rows.reduce((x, r) => x + r.f, 0);
+  const npv = rows.reduce((x, r) => x + r.pv, 0);
+  const share = budget ? (n(fee) * 1e6) / budget : 0;
   return (
     <Card>
-      <CardHeader title="Premium conversion payback" subtitle="Converting general seats into a new premium product, Base case" />
-      <div className="grid gap-4 p-5 sm:grid-cols-2 lg:grid-cols-4">
-        <Field id="c-seats" label="Seats converted" value={seats} step={50} onChange={setSeats} />
-        <Field id="c-price" label="New price per game ($)" value={price} step={10} onChange={setPrice} />
-        <Field id="c-sold" label="Sell-through (%)" value={sold} step={5} onChange={setSold} />
-        <Field id="c-capex" label="Build cost ($M)" value={capex} step={0.5} onChange={setCapex} />
+      <CardHeader title="Sponsorship deal evaluator" subtitle="Enter the terms of a proposed multi-year partnership. The figures shown are example terms." />
+      <div className="grid gap-4 p-5 sm:grid-cols-3 lg:grid-cols-5">
+        <Field id="s-fee" label="Year-one fee ($M)" value={fee} step={0.25} onChange={setFee} />
+        <Field id="s-esc" label="Yearly increase (%)" value={esc} step={0.5} onChange={setEsc} />
+        <Field id="s-term" label="Term (years)" value={term} step={1} onChange={setTerm} />
+        <Field id="s-cost" label="Cost to deliver (% of fee)" value={cost} step={1} onChange={setCost} hint="Signage, hospitality, activation" />
+        <Field id="s-rate" label="Discount rate (%)" value={rate} step={0.5} onChange={setRate} />
       </div>
       <div className="mx-5 mb-5"><Result items={[
-        { k: "New premium revenue", v: fmtM(gain, 2), s: "per season" },
-        { k: "General revenue given up", v: "−" + fmtM(lost, 2), s: `At ${(Math.min(1, occ) * 100).toFixed(0)}% general seating occupancy` },
-        { k: "Revenue payback", v: Number.isFinite(payback) ? payback.toFixed(1) + " yrs" : "No payback", gold: true, s: `${fmtM(net, 2)} net a season` },
+        { k: "Total contract value", v: fmtM(tcv, 2), s: `${years} years of fees` },
+        { k: "Value in today's dollars", v: fmtM(npv, 2), s: "Net of delivery cost, discounted", gold: true },
+        { k: "Share of sponsorship budget", v: (share * 100).toFixed(1) + "%", s: `Year one vs ${fmtM(budget, 0)} plan` },
       ]} /></div>
-      <p className="px-5 pb-5 text-[13px] text-muted">Revenue payback before the cost of running the product. A full decision would add hospitality costs and the renewal risk on premium contracts.</p>
+      <div className="overflow-x-auto px-5 pb-5">
+        <table className="w-full min-w-[520px] text-sm tabular-nums">
+          <thead className="text-xs font-medium text-muted">
+            <tr className="border-b border-line text-right">
+              <th className="py-2 text-left">Year</th><th className="py-2">Fee</th><th className="py-2">Cost to deliver</th><th className="py-2">Net</th><th className="py-2">Today's dollars</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-line font-mono">
+            {rows.map((r) => (
+              <tr key={r.y} className="text-right">
+                <td className="py-2 text-left font-sans text-ink">{r.y}</td>
+                <td className="py-2 text-ink">{fmtM(r.f, 2)}</td>
+                <td className="py-2 text-muted">−{fmtM(r.c, 2)}</td>
+                <td className="py-2 text-ink">{fmtM(r.net, 2)}</td>
+                <td className="py-2 text-ink">{fmtM(r.pv, 2)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="mt-3 text-[13px] text-muted">Fees are assumed to be paid once a year. A longer term or higher increase raises the headline value; the discount rate shows what that value is worth today.</p>
+      </div>
     </Card>
   );
 }
@@ -65,8 +93,8 @@ function PaybackTool() {
 export default function Tools() {
   return (
     <div className="grid gap-6">
-      <PageHeader title="Decision tools" description="Quick models for testing capital projects and new events. Each one runs off the Base case and its own inputs." />
-      <PaybackTool />
+      <PageHeader title="Decision tools" description="Quick models for testing new partnerships and events. Each one runs off the Base case and its own inputs." />
+      <SponsorshipTool />
       <Events bare />
     </div>
   );
