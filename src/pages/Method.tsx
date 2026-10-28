@@ -26,7 +26,7 @@ export default function Method({ bare }: { bare?: boolean }) {
             <li>Development around the site</li>
             <li>Postseason games</li>
           </ul>
-          <p className="px-5 pb-5 text-sm text-muted">The club's actual figures will differ. The goal is to show how the revenue drivers fit together and where the biggest risks are.</p>
+          <p className="px-5 pb-5 text-sm text-muted">The club's actual figures will differ. The goal is to show how the revenue drivers fit together.</p>
         </Card>
       </div>
       <Card>
