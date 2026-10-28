@@ -67,7 +67,7 @@ export default function Model() {
     <div className="grid gap-5">
       <PageHeader
         title="Model"
-        description="The workbook behind every tab. Edit any input cell and the whole planner recalculates. The highlighted column is the active scenario; edited cells show in bold gold."
+        description="Every input behind the site, with its source. Change any cell and every tab updates."
       >
         <button type="button" onClick={reset} disabled={!edits}
           className="inline-flex items-center gap-1.5 rounded-md border border-line bg-white px-3 py-1.5 text-[13px] font-medium text-ink shadow-card disabled:opacity-40">
