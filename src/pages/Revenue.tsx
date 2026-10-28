@@ -2,12 +2,12 @@ import { Card, CardHeader, PageHeader, TierBadge } from "../components/ui";
 import { DEFS, fmtM, STREAMS, tierOf } from "../model";
 import { useStore } from "../store";
 
-export default function Revenue() {
+export default function Revenue({ bare }: { bare?: boolean }) {
   const { result: r, all } = useStore();
   const rows = STREAMS.slice().sort((a, b) => (r[b.key] as number) - (r[a.key] as number));
   return (
     <div className="grid gap-6">
-      <PageHeader
+      <PageHeader small={bare} id={bare ? "sec-streams" : undefined}
         title="Revenue streams"
         description="How each line is built and how solid its inputs are. Disclosed means stated by the club, Benchmarked means set from other MLB clubs or Las Vegas venues, and Estimated means a judgment kept inside a benchmark range."
       />
@@ -59,7 +59,7 @@ export default function Revenue() {
         </div>
       </Card>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      {!bare && <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader title="Ticket pricing" subtitle="General seating, current scenario" />
           <dl className="grid grid-cols-2 gap-x-6 gap-y-4 p-5 text-sm">
@@ -77,7 +77,7 @@ export default function Revenue() {
             <li>Postseason games and development around the site</li>
           </ul>
         </Card>
-      </div>
+      </div>}
     </div>
   );
 }

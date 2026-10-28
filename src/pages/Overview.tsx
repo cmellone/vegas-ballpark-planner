@@ -32,8 +32,8 @@ export default function Overview() {
   return (
     <div className="grid gap-6">
       <PageHeader
-        title="Opening season at a glance"
-        description="Ballpark and commercial revenue for the first season in Las Vegas. National media and MLB revenue sharing are out of scope. Every figure flows from the Model page."
+        title="Ballpark plan"
+        description="The long-range plan for the first season in the new ballpark: ballpark and commercial revenue by stream, scenario and risk. National media and MLB revenue sharing are out of scope. Every figure flows from the Model tab and sets the budget on Budget & reporting."
       >
         <Pill tone="gold">{label} case · 2028</Pill>
       </PageHeader>

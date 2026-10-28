@@ -16,7 +16,7 @@ function Field({ id, label, value, onChange, step }: { id: string; label: string
   );
 }
 
-export default function Events() {
+export default function Events({ bare }: { bare?: boolean }) {
   const { inputs: x, result: r, scenario } = useStore();
   const [e, setE] = useState({ att: x.eva, fb: x.evf, rent: x.rent, comm: x.comm * 100 });
   useEffect(() => setE({ att: x.eva, fb: x.evf, rent: x.rent, comm: x.comm * 100 }), [scenario]);
@@ -26,9 +26,9 @@ export default function Events() {
 
   return (
     <div className="grid gap-6">
-      <PageHeader
+      <PageHeader small={bare}
         title="Dome events"
-        description="A climate-controlled ballpark on the Strip can host concerts, fights and neutral-site games on non-baseball dates. This page sizes the annual line and tests a single event."
+        description="A climate-controlled ballpark on the Strip can host concerts, fights and neutral-site games on non-baseball dates. This section sizes the annual line and tests a single event."
       />
       <div className="grid gap-4 sm:grid-cols-3">
         <Stat label="Events per year" value={String(x.ev)} sub="Non-baseball dates" />

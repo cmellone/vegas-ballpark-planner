@@ -3,7 +3,7 @@ import { Card, CardHeader, CHART, ChartTooltip, PageHeader } from "../components
 import { compute, fmtInt, fmtM, pick, SENS } from "../model";
 import { useStore } from "../store";
 
-export default function Risk() {
+export default function Risk({ bare }: { bare?: boolean }) {
   const { values, scenario, inputs: x, result: r } = useStore();
   const base = compute(pick(values, "b")).total;
   const sens = SENS.map(([id, label]) => {
@@ -20,7 +20,7 @@ export default function Risk() {
 
   return (
     <div className="grid gap-6">
-      <PageHeader title="Risk & ramp" description="Which assumptions move the number most, and how revenue settles once the new-ballpark effect fades." />
+      <PageHeader small={bare} id={bare ? "sec-risk" : undefined} title="Risk & ramp" description="Which assumptions move the number most, and how revenue settles once the new-ballpark effect fades." />
       <Card>
         <CardHeader title="Sensitivity to each input" subtitle={`Change from the base case of ${fmtM(base)} when one input moves to its conservative or upside value, $ millions`} />
         <div className="h-[470px] px-2 py-4">

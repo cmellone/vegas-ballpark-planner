@@ -5,18 +5,18 @@ import "@fontsource-variable/geist-mono";
 import "./index.css";
 import { StoreProvider } from "./store";
 import { PAGES, Shell, type PageId } from "./components/Shell";
-import Overview from "./pages/Overview";
-import Revenue from "./pages/Revenue";
-import Premium from "./pages/Premium";
-import Events from "./pages/Events";
-import Risk from "./pages/Risk";
+import Plan from "./pages/Plan";
+import Reporting from "./pages/Reporting";
+import Tools from "./pages/Tools";
 import Model from "./pages/Model";
-import Method from "./pages/Method";
 
-const VIEWS: Record<PageId, () => JSX.Element> = { overview: Overview, revenue: Revenue, premium: Premium, events: Events, risk: Risk, model: Model, method: Method };
+const VIEWS: Record<PageId, () => JSX.Element> = { plan: Plan, reporting: Reporting, tools: Tools, model: Model };
+// Older links keep working.
+const ALIAS: Record<string, PageId> = { overview: "plan", revenue: "plan", premium: "plan", risk: "plan", events: "tools", method: "model" };
 const fromHash = (): PageId => {
   const h = location.hash.slice(1);
-  return (PAGES.some((p) => p.id === h) ? h : "overview") as PageId;
+  if (PAGES.some((p) => p.id === h)) return h as PageId;
+  return ALIAS[h] ?? "plan";
 };
 
 function App() {

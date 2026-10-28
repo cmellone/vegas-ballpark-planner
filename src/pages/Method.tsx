@@ -2,10 +2,10 @@ import { ExternalLink } from "lucide-react";
 import { Card, CardHeader, PageHeader, TierBadge } from "../components/ui";
 import { SOURCE_ORDER, SOURCES } from "../model";
 
-export default function Method() {
+export default function Method({ bare }: { bare?: boolean }) {
   return (
     <div className="grid gap-6">
-      <PageHeader title="Methodology" description="How the planner is built, what it leaves out, and where every number comes from." />
+      <PageHeader small={bare} title="Methodology & sources" description="How the planner is built, what it leaves out, and where every number comes from." />
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader title="Approach" />

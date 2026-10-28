@@ -1,17 +1,14 @@
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
-import { BarChart3, BookOpen, CalendarRange, Gem, LayoutDashboard, RotateCcw, ShieldAlert, Table2 } from "lucide-react";
+import { BarChart3, Calculator, LayoutDashboard, RotateCcw, Table2 } from "lucide-react";
 import { SCENARIOS } from "../model";
 import { useStore } from "../store";
 
 export const PAGES = [
-  { id: "overview", label: "Overview", icon: LayoutDashboard },
-  { id: "revenue", label: "Revenue streams", icon: BarChart3 },
-  { id: "premium", label: "Premium seating", icon: Gem },
-  { id: "events", label: "Dome events", icon: CalendarRange },
-  { id: "risk", label: "Risk & ramp", icon: ShieldAlert },
+  { id: "plan", label: "Ballpark plan", icon: LayoutDashboard },
+  { id: "reporting", label: "Budget & reporting", icon: BarChart3 },
+  { id: "tools", label: "Decision tools", icon: Calculator },
   { id: "model", label: "Model", icon: Table2 },
-  { id: "method", label: "Methodology", icon: BookOpen },
 ] as const;
 export type PageId = (typeof PAGES)[number]["id"];
 

@@ -3,7 +3,7 @@ import { Card, CardHeader, CHART, ChartTooltip, PageHeader, Pill, TierBadge } fr
 import { fmtInt, fmtM, type Tier } from "../model";
 import { useStore } from "../store";
 
-export default function Premium() {
+export default function Premium({ bare }: { bare?: boolean }) {
   const { inputs: x, result: r } = useStore();
   const products: { name: string; seats: number; price: string; sold: number; rev: number; psl: number | null; status: [string, "good" | "gold" | "neutral"]; tier: Tier }[] = [
     { name: "Athletic Club", seats: x.acs, price: `$${fmtInt(x.acp)} / season`, sold: x.acsold, rev: r.acRev, psl: x.acs * x.acsold * x.psla, status: ["Sold out", "good"], tier: "D" },
@@ -15,7 +15,7 @@ export default function Premium() {
   const premTotal = r.clubs + r.suites;
   return (
     <div className="grid gap-6">
-      <PageHeader
+      <PageHeader small={bare} id={bare ? "sec-premium" : undefined}
         title="Premium seating"
         description="About one in five seats carries a seat license, the highest premium share in MLB according to local reporting. The two clubs behind home plate are priced and largely sold, which makes this the best-documented part of the model."
       />
@@ -49,7 +49,7 @@ export default function Premium() {
       </Card>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
+        {!bare && <Card>
           <CardHeader title="Annual premium revenue by product" subtitle="$ millions" />
           <div className="h-[260px] px-2 py-4">
             <ResponsiveContainer>
@@ -64,8 +64,8 @@ export default function Premium() {
               </BarChart>
             </ResponsiveContainer>
           </div>
-        </Card>
-        <Card>
+        </Card>}
+        <Card className={bare ? "lg:col-span-2" : undefined}>
           <CardHeader title="Seat licenses: funding, not revenue" />
           <div className="grid gap-3 p-5 text-sm text-ink">
             <p>Disclosed seat licenses on the two clubs total <b className="font-mono font-semibold">{fmtM(r.psl)}</b>. They're collected once and typically go toward construction. For reporting they're usually recognized over the life of the license, not in the opening season.</p>

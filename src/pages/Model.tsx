@@ -4,6 +4,7 @@ import { RotateCcw } from "lucide-react";
 import { PageHeader, TierBadge } from "../components/ui";
 import { cell, DEFS, fmtInt, fmtM, fmtVal, parseVal, SCENARIOS, SECTIONS, SOURCE_ORDER, SOURCES, type Scenario } from "../model";
 import { useStore } from "../store";
+import Method from "./Method";
 
 type Sel = { ref: string; text: string } | null;
 
@@ -66,7 +67,7 @@ export default function Model() {
     <div className="grid gap-5">
       <PageHeader
         title="Model"
-        description="The workbook behind every page. Edit any input cell and the whole planner recalculates. The highlighted column is the active scenario; edited cells show in bold gold."
+        description="The workbook behind every tab. Edit any input cell and the whole planner recalculates. The highlighted column is the active scenario; edited cells show in bold gold."
       >
         <button type="button" onClick={reset} disabled={!edits}
           className="inline-flex items-center gap-1.5 rounded-md border border-line bg-white px-3 py-1.5 text-[13px] font-medium text-ink shadow-card disabled:opacity-40">
@@ -166,6 +167,7 @@ export default function Model() {
           ))}
         </div>
       </div>
+      <Method bare />
     </div>
   );
 }

@@ -54,11 +54,12 @@ export function Stat({ label, value, sub, icon, accent }: { label: string; value
   );
 }
 
-export function PageHeader({ title, description, children }: { title: string; description?: string; children?: ReactNode }) {
+export function PageHeader({ title, description, children, small, id }: { title: string; description?: string; children?: ReactNode; small?: boolean; id?: string }) {
+  const H = small ? "h2" : "h1";
   return (
-    <div className="flex flex-wrap items-end justify-between gap-4">
+    <div id={id} className={clsx("flex scroll-mt-24 flex-wrap items-end justify-between gap-4", small && "border-t border-line pt-8")}>
       <div className="min-w-0">
-        <h1 className="text-[22px] font-semibold tracking-tight text-ink">{title}</h1>
+        <H className={clsx("font-semibold tracking-tight text-ink", small ? "text-lg" : "text-[22px]")}>{title}</H>
         {description && <p className="mt-1 max-w-[70ch] text-sm text-muted">{description}</p>}
       </div>
       {children}
