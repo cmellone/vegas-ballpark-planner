@@ -5,16 +5,16 @@ import { SOURCE_ORDER, SOURCES } from "../model";
 export default function Method({ bare }: { bare?: boolean }) {
   return (
     <div className="grid gap-6">
-      <PageHeader small={bare} title="Methodology & sources" description="How the planner is built, what it leaves out, and where every number comes from." />
+      <PageHeader small={bare} title="Methodology & sources" description="How the site is built, what it leaves out, and where every number comes from." />
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader title="Approach" />
           <ul className="grid gap-3 p-5 text-sm text-ink">
-            <li>A driver-based model of the ballpark's opening season, built from the outside in using public information.</li>
+            <li>A driver-based model of the opening season, built from public information. Three scenarios bracket the uncertainty.</li>
             <li className="flex flex-wrap items-center gap-1.5">Every input is tagged <TierBadge tier="D" /> stated by the club or Stadium Authority, <TierBadge tier="B" /> set from other MLB clubs or Las Vegas venues, or <TierBadge tier="E" /> a judgment kept inside a benchmark range.</li>
-            <li>Three scenarios bracket the uncertainty, and the sensitivity view shows which inputs matter most.</li>
-            <li>Revenue only. Operating costs aren't public enough to model credibly.</li>
-            <li>Seat license fees are one-time and typically fund construction, so they sit outside operating revenue.</li>
+            <li>The budget phases the Base case across an illustrative 81-game schedule. Monthly actuals are simulated to show the reporting process.</li>
+            <li>Decision tools start from example terms you can change.</li>
+            <li>Revenue only. Operating costs aren't public enough to model credibly, and one-time seat license fees sit outside operating revenue.</li>
           </ul>
         </Card>
         <Card>
