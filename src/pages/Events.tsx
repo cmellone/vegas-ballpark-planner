@@ -35,10 +35,10 @@ export default function Events({ bare }: { bare?: boolean }) {
         <Stat label="Club take per event" value={fmtM(r.evPer, 2)} sub="Rent plus F&B share" />
         <Stat label="Annual events revenue" value={fmtM(r.events)} sub={`${((r.events / r.total) * 100).toFixed(1)}% of total`} />
       </div>
-      <div className="grid gap-6 lg:grid-cols-5">
-        <Card className="lg:col-span-3">
+      <div className="grid gap-6">
+        <Card>
           <CardHeader title="Single-event evaluator" subtitle="Enter the terms of one proposed event" />
-          <div className="grid gap-4 p-5 sm:grid-cols-2">
+          <div className="grid gap-4 p-5 sm:grid-cols-2 lg:grid-cols-4">
             <Field id="e-att" label="Attendance" value={e.att} step={500} onChange={(v) => setE({ ...e, att: v })} />
             <Field id="e-fb" label="F&B spend per guest ($)" value={e.fb} step={1} onChange={(v) => setE({ ...e, fb: v })} />
             <Field id="e-rent" label="Facility rent ($)" value={e.rent} step={25000} onChange={(v) => setE({ ...e, rent: v })} />
@@ -56,14 +56,11 @@ export default function Events({ bare }: { bare?: boolean }) {
               <div className="mt-1 text-[13px] text-white/60">Most the event can cost the club and still pay</div>
             </div>
           </div>
-        </Card>
-        <Card className="lg:col-span-2">
-          <CardHeader title="How to read it" />
-          <div className="grid gap-3 p-5 text-sm text-ink">
-            <p>Event-day costs (staffing, security, field conversion, cleanup) aren't public, so the tool doesn't guess them. It returns the ceiling instead: if the club's costs come in below the breakeven figure, the event adds money.</p>
-            <p className="text-muted">The other test is the calendar. An event only works if it doesn't push a baseball date or damage the field before a homestand.</p>
-            <p className="text-muted">Why 12 events in the base case: Allegiant Stadium hosted 15 concerts and seven other ticketed events in the year to June 2026, on top of football. The ballpark is half that size and has 81 home dates to work around.</p>
-          </div>
+          <ul className="grid gap-1.5 px-5 pb-5 text-[13px] text-muted">
+            <li>• Event-day costs aren't public, so the tool shows the most an event can cost the club and still pay.</li>
+            <li>• An event also has to fit the calendar without moving a baseball date.</li>
+            <li>• The base case assumes 12 events a year. Nearby Allegiant Stadium, twice the size, hosted 22 non-football events in the year to June 2026.</li>
+          </ul>
         </Card>
       </div>
     </div>
