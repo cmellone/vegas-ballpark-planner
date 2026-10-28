@@ -53,11 +53,11 @@ function SponsorshipTool() {
   return (
     <Card>
       <CardHeader title="Sponsorship deal evaluator" subtitle="Enter the terms of a proposed multi-year partnership. The figures shown are example terms." />
-      <div className="grid gap-4 p-5 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="grid items-end gap-4 p-5 sm:grid-cols-3 lg:grid-cols-5">
         <Field id="s-fee" label="Year-one fee ($M)" value={fee} step={0.25} onChange={setFee} />
         <Field id="s-esc" label="Yearly increase (%)" value={esc} step={0.5} onChange={setEsc} />
         <Field id="s-term" label="Term (years)" value={term} step={1} onChange={setTerm} />
-        <Field id="s-cost" label="Cost to deliver (% of fee)" value={cost} step={1} onChange={setCost} hint="Signage, hospitality, activation" />
+        <Field id="s-cost" label="Delivery cost (% of fee)" value={cost} step={1} onChange={setCost} />
         <Field id="s-rate" label="Discount rate (%)" value={rate} step={0.5} onChange={setRate} />
       </div>
       <div className="mx-5 mb-5"><Result items={[
@@ -69,7 +69,7 @@ function SponsorshipTool() {
         <table className="w-full min-w-[520px] text-sm tabular-nums">
           <thead className="text-xs font-medium text-muted">
             <tr className="border-b border-line text-right">
-              <th className="py-2 text-left">Year</th><th className="py-2">Fee</th><th className="py-2">Cost to deliver</th><th className="py-2">Net</th><th className="py-2">Today's dollars</th>
+              <th className="py-2 text-left">Year</th><th className="py-2">Fee</th><th className="py-2">Delivery cost</th><th className="py-2">Net</th><th className="py-2">Today's dollars</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-line font-mono">
@@ -84,7 +84,7 @@ function SponsorshipTool() {
             ))}
           </tbody>
         </table>
-        <p className="mt-3 text-[13px] text-muted">Fees are assumed to be paid once a year. A longer term or higher increase raises the headline value; the discount rate shows what that value is worth today.</p>
+        <p className="mt-3 text-[13px] text-muted">Delivery cost covers signage, hospitality and activation. Fees are assumed to be paid once a year. A longer term or higher increase raises the headline value; the discount rate shows what that value is worth today.</p>
       </div>
     </Card>
   );
